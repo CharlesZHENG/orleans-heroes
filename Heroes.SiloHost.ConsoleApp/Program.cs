@@ -44,7 +44,7 @@ namespace Heroes.SiloHost.ConsoleApp
 					.SetBasePath(Directory.GetCurrentDirectory())
 					.AddCommandLine(args)
 					.AddJsonFile("config.json")
-					.AddJsonFile($"config.{shortEnvName}.json")
+					//.AddJsonFile($"config.{shortEnvName}.json")
 					.AddJsonFile("app-info.json")
 					.AddEnvironmentVariables();
 
