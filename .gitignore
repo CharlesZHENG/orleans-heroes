@@ -204,3 +204,4 @@ tmp/
 **/wwwroot/dist/
 **/*/wwwroot/index.html
 _artifact
+/Heroes.SiloHost.ConsoleApp/Properties/launchSettings.json

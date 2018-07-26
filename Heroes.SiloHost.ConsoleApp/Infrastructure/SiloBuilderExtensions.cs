@@ -22,12 +22,12 @@ namespace Heroes.SiloHost.ConsoleApp.Infrastructure
 					options.ServiceId = appInfo.Name;
 				});
 
-			if (hostingEnv.IsDev)
-				siloHost.UseDevelopment();
-			if (appInfo.IsDockerized)
-				siloHost.UseDockerSwarm();
-			else
-				siloHost.UseDevelopmentClustering();
+			//if (hostingEnv.IsDev)
+				//siloHost.UseDevelopment();
+			//if (appInfo.IsDockerized)
+			//	siloHost.UseDockerSwarm();
+			//else
+			siloHost.UseDevelopmentClustering();
 
 			return siloHost;
 		}
@@ -53,7 +53,10 @@ namespace Heroes.SiloHost.ConsoleApp.Infrastructure
 
 			return siloHost
 					.AddMemoryGrainStorage(OrleansConstants.GrainPersistenceStorage)
-					.UseDevelopmentClustering(options => options.PrimarySiloEndpoint = new IPEndPoint(siloAddress, siloPort))
+					 .UseConsulClustering(options => {
+						 options.Address = new Uri("http://127.0.0.1:8500");
+					 })
+					//.UseDevelopmentClustering(options => options.PrimarySiloEndpoint = new IPEndPoint(siloAddress, siloPort))
 					.ConfigureEndpoints(siloAddress, siloPort, gatewayPort) //, listenOnAnyHostAddress: true)
 				;
 		}

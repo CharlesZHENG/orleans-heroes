@@ -6,6 +6,7 @@ using Heroes.Core.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Orleans;
 using Orleans.Configuration;
+using Orleans.Hosting;
 
 namespace Heroes.Api.Infrastructure
 {
@@ -74,13 +75,16 @@ namespace Heroes.Api.Infrastructure
 			ClientBuilderContext context
 		)
 		{
-			if (!context.AppInfo.IsDockerized)
+			//if (!context.AppInfo.IsDockerized)
+			//{
+			//	var siloAddress = IPAddress.Loopback;
+			//	const int gatewayPort = 30000; // 10400
+			//	clientBuilder.UseStaticClustering(new IPEndPoint(siloAddress, gatewayPort));
+			//}
+			clientBuilder.UseConsulClustering(options =>
 			{
-				var siloAddress = IPAddress.Loopback;
-				const int gatewayPort = 30000; // 10400
-				clientBuilder.UseStaticClustering(new IPEndPoint(siloAddress, gatewayPort));
-			}
-
+				options.Address = new Uri("http://127.0.0.1:8500");
+			});
 			return clientBuilder.Configure<ClusterOptions>(config =>
 				{
 					config.ClusterId = context.ClusterId;

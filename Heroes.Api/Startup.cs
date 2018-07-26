@@ -77,11 +77,11 @@ namespace Heroes.Api
 				app.UseGraphiQl();
 			}
 
-			app.UseSignalR(routes =>
-			{
-				routes.MapHub<HeroHub>("/real-time/hero");
-				routes.MapHub<UserNotificationHub>("/userNotifications");
-			});
+			//app.UseSignalR(routes =>
+			//{
+			//	routes.MapHub<HeroHub>("/real-time/hero");
+			//	routes.MapHub<UserNotificationHub>("/userNotifications");
+			//});
 
 			app.UseMvc();
 		}
